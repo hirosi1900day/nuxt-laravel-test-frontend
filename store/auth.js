@@ -15,7 +15,7 @@ const mutations = {
 
 const actions = {
    async currentUser (context) {
-      const response = await axios.get('/api/user')
+      const response = await axios.get('http://localhost:8080/users/me')
       const user = response.date || null
       context.commit('setUser', user)
    },

@@ -1,7 +1,6 @@
 
-
-export default function({store, redirect}){
-   if(!store.getters['auth/check']) {
-      redirect('/')
+export default function({app, redirect}){
+   if(!app.$auth.loggedIn) {
+      redirect('/login')
    }
 }

@@ -39,7 +39,7 @@ export default {
     }
   },
    async asyncData({ app }) {
-     const data = await app.$axios.$get('http://localhost:8080/api/test1')
+     const data = await app.$axios.$get('http://localhost:8080/users/test1')
      console.log(data)
      return {
        data

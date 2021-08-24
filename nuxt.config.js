@@ -1,4 +1,7 @@
 export default {
+
+  
+
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
 
@@ -25,6 +28,9 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '@/plugins/login.js',
+    '@/plugins/const.js',
+    '~/plugins/axios.js'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -36,6 +42,7 @@ export default {
     '@nuxtjs/tailwindcss',
   ],
 
+
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/pwa
@@ -46,11 +53,10 @@ export default {
   axios : {
     proxy: true,
     baseURL: 'http://localhost:8080'
- },
+  },
 
  proxy :
-  { "/api/": { target: 'http://localhost:8080' } }
-,
+  { "/api/": { target: 'http://localhost:8080' } },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
@@ -63,10 +69,43 @@ export default {
   build: {
   },
 
+//   auth: {
+//     redirect: {
+//         login: '/login', 
+//         logout: '/login', 
+//         callback: false,
+//         home: '/home'
+//     },
+
+//     strategies: {
+
+//         User: {
+//             provider: 'laravel/jwt',
+//             url: '/',
+//             token: {
+//                 property: 'access_token',
+//                 maxAge: 60 * 60,
+//             },
+//             refreshToken: {
+//                 property: 'access_token',
+//                 maxAge: 20160 * 60,
+//             },
+            
+//             endpoints: {
+//                 login: { url: '/login', method: 'post', propertyName: 'access_token' },
+//                 logout: { url: 'http://localhost:8080/api/logout', method: 'post' },
+//                 refresh: { url: 'http://localhost:8080/ap/refresh', method: 'post' , propertyName: 'access_token'}, 
+//                 user: { url: '/me', method: 'get', propertyName: false},
+//             }
+//         }
+//     },
+// },
+
   auth:{
     localStorage: false,
     strategies:{
       local:{
+        scheme: 'local',
         tokenType:'bearer',
         endpoints:{
           login:{
@@ -75,7 +114,7 @@ export default {
             propertyName:'access_token'
           },
           logout:{
-            url:'http://localhost:8080/api/logout',
+            url:'http://localhost:8080/users/logout',
             method:'post',
           },
           register:{
@@ -83,18 +122,42 @@ export default {
             method:'post',
           },
           user:{
-            url:'http://localhost:8080/api/me',
+            url:'http://localhost:8080/users/me',
             method:'get',
             propertyName:false
-          }
+          },
+        },
+      },
+      local1: {
+        scheme: 'local',
+        tokenType:'bearer',
+        endpoints:{
+        login:{
+          url:'http://localhost:8080/api/shop/login',
+          method:'post',
+          propertyName:'access_token'
+        },
+        logout:{
+          url:'http://localhost:8080/shopUsers/logout',
+          method:'post',
+        },
+        register:{
+          url:'http://localhost:8080/api/shop/register',
+          method:'post',
+        },
+        user:{
+          url:'http://localhost:8080/shopUsers/me',
+          method:'get',
+          propertyName:false
         }
       },
-      // redirect: {
-      //   login: '/login',
-      //   logout: '/',
-      //   callback: '/login',
-      //   home: '/home'
-      // },
+      redirect: {
+        login: '/login',
+        logout: '/',
+        callback: '/login',
+        home: '/home'
+      },
     }
   }
+}
 }

@@ -19,17 +19,12 @@ export default {
   methods: {
     async login() {
       try {
-        // const response = await this.$auth.loginWith('local', { data: this.form });
-        const response = this.$login('local', this.form).then( () => {
-          console.log(response)
-        }).catch((error) => {
-          console.error(error);
-          this.$router.back()
-        });
+        console.log('test')
+        const response = await this.$auth.loginWith('local1', { data: this.form })
+        console.log(this.form)
+        console.log(response)
       } catch(error) {
-        console.log(error);
-        
-
+        console.log(error)
       }
     }
   }
